@@ -1,0 +1,474 @@
+/*Estilos globales*/
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    color: white;
+}
+
+body {
+    font-family: 'Space Grotesk', sans-serif;
+    background-color: #141C29;
+    padding-top: 80px;
+}
+
+img {
+    width: 52px;
+    height: 52px;
+    object-fit: cover;
+    border-radius: 20px 20px 0px 0px;
+}
+
+/*Estilos del encabezado*/
+header {
+    font-size: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 70px;
+    top: 0;
+    position: fixed;
+    width: 100%;
+    padding: 0 20px;
+    background-color: #263143;
+}
+
+header nav ul {
+    list-style: none;
+}
+
+header nav ul li {
+    display: inline;
+    margin-right: 20px;
+}
+
+header nav ul li a {
+    color: white;
+    text-decoration: none;
+}
+
+/* Estilos de búsqueda */
+.formulario-busqueda {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.formulario-busqueda input {
+    padding: 10px;
+    margin-right: 10px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    color: #000;
+}
+
+.formulario-busqueda button {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    background-color: #263143;
+    color: #fff;
+    cursor: pointer;
+}
+
+/* Estilos principales */
+h1 {
+    font-family: 'Montserrat', sans-serif;
+    text-align: center;
+    margin: 30px 0px;
+}
+
+.main {
+    margin-top: 120px;
+    padding: 20px;
+}
+
+.contenedorPublicacion {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 50px;
+}
+
+/*Estilos tarjetas de las publicaciones*/
+.tarjeta-publicacion {
+    width: 300px;
+    padding: 20px;
+    background-color: #2D4263;
+    border-radius: 20px;
+    box-shadow: 0px 0px 5px 0px rgba(0, 0, 0, 0.75);
+}
+
+.tarjeta-publicacion:hover {
+    background-color: #11294d;
+}
+
+.tarjeta-publicacion img {
+    width: 100%;
+    height: auto;
+    border-radius: 10px;
+}
+
+.tarjeta-publicacion h3 {
+    font-size: 20px;
+    margin-bottom: 10px;
+}
+
+.tarjeta-publicacion p {
+    margin-bottom: 10px;
+}
+
+.tarjeta-publicacion button {
+    background-color: #263143;
+    width: 100%;
+    padding: 10px;
+    border: none;
+    border-radius: 10px;
+    color: #fff;
+    cursor: pointer;
+}
+
+/*Estilos de la ventana emergente del carrito*/
+.ventana-emergente {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.4);
+    display: none;
+    justify-content: center;
+    align-items: center;
+}
+
+.contenido-ventana {
+    width: 80%;
+    max-width: 500px;
+    padding: 20px;
+    background-color: #0b2868;
+    border-radius: 10px;
+}
+
+.contenido-ventana h2 {
+    font-weight: 300;
+    font-size: 32px;
+    margin-bottom: 20px;
+}
+
+.contenido-ventana form input {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 20px;
+    border: none;
+    border-radius: 5px;
+    background-color: #F2F2F2;
+    font-size: 16px;
+    outline: none;
+}
+
+.contenido-ventana form button,
+.contenido-ventana button {
+    width: 100%;
+    padding: 10px;
+    background-color: #263143;
+    border: none;
+    border-radius: 5px;
+    color: white;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    outline: none;
+}
+
+.contenido-ventana form button:hover,
+.contenido-ventana button:hover {
+    background-color: #41546b;
+}
+
+.contenido-ventana button:last-child {
+    margin-top: 10px;
+    background-color: #f44336;
+}
+
+.contenido-ventana button:last-child:hover {
+    background-color: #d32f2f;
+}
+
+.contenido-ventana input {
+    color: black;
+}
+
+/*Contendio vantana Carrito*/
+.contenedorCompra {
+    display: flex;
+    flex-direction: column; /* Alinear elementos verticalmente */
+    align-items: center; /* Alinear elementos horizontalmente */
+    justify-content: flex-start; /* Alinear elementos en la parte superior */
+    width: 100%;
+    height: 100%;
+    position: fixed;
+    top: 0;
+    background-color: #3a4168d3;
+    z-index: 2; /* Asegurar que esté sobre el contenedor de productos */
+    padding: 20px;
+}
+
+#contenedorCompra {
+    min-height: 300px; /* Establecemos una altura mínima para el contenedor */
+}
+
+.informacionCompra {
+    width: 500px;
+    min-height: 50px;
+    border-radius: 25px;
+    display: flex;
+    align-items: flex-start;
+    justify-content: flex-start;
+    position: fixed;
+    /* Cambiamos a posición fija */
+    top: 0;
+    /* Fijamos en la parte superior */
+    left: 50%;
+    /* Ajustamos la posición horizontal */
+    transform: translateX(-50%);
+    /* Centramos horizontalmente */
+    padding: 20px;
+    z-index: 2;
+    /* Ajustamos el índice z para estar por encima del contenedor de productos */
+}
+
+
+.informacionCompra h2 {
+    font-weight: 300;
+    margin: 50px 0 20px 0;
+    font-size: 32px;
+    width: 500px;
+    
+}
+
+.x {
+    padding-top: 30px;
+    padding-right: 30px;
+    cursor: pointer;
+    font-size: 20px;
+    color: white;
+}
+
+.productosCompra {
+    margin-top: 60px; /* Agregamos un margen superior */
+    width: 80%;
+    max-width: 500px; /* Limitamos el ancho para que no sea demasiado grande */
+    height: 80%; /* Establecemos una altura específica */
+    overflow-y: auto; /* Añadimos un scroll vertical si es necesario */
+    padding: 20px;
+    background-color: #2D4263;
+    border-radius: 15px;
+    position: relative;
+}
+
+.productosCompra>div {
+    margin: 10px 0; /* Ajustar margen superior e inferior */
+    padding: 10px; /* Añadir relleno */
+    width: calc(100% - 40px); /* Restar el padding horizontal */
+    border-bottom: 1px dotted black;
+    display: flex;
+    justify-content: space-between;
+    align-items: center; /* Alinear elementos verticalmente */
+    background-color: #2D4263; /* Fondo azul */
+}
+
+.productosCompra::-webkit-scrollbar {
+    width: 7px;
+    background-color: #141C29;
+    border-radius: 5px;
+}
+
+.productosCompra::-webkit-scrollbar-thumb {
+    background: white;
+    border-radius: 3px;
+}
+
+.img {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.productosCompra img {
+    width: 25px;
+    height: auto;
+    margin-right: 10px;
+    cursor: pointer;
+}
+
+.total {
+    z-index: 1;
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 150px;
+    font-size: 27px;
+    font-weight: 700;
+}
+
+.total span {
+    font-weight: 300;
+}
+
+/* Ajustamos la posición de los botones */
+.botones {
+    position: absolute;
+    bottom: 20px; /* Colocamos los botones en la parte inferior */
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+/* Estilos para los botones */
+.botones button {
+    margin: 0 5px;
+    padding: 10px 20px;
+    background-color: #263143;
+    border: none;
+    border-radius: 5px;
+    color: white;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+.contenedorCompra>button {
+    margin-top: 20px;
+    padding: 10px 20px;
+    background-color: #d4dce9;
+    border: none;
+    border-radius: 10px;
+    color: white;
+    font-size: 18px;
+    cursor: pointer;
+}
+
+.contenedorCompra>button:hover {
+    background-color: #41546b;
+}
+
+.none>div,
+.none button,
+.none p {
+    width: 0px;
+    height: 0px;
+    font-size: 0px;
+    border: 0px;
+}
+
+.soldOut {
+    background-color: red;
+    padding: 7px 10px;
+    border-radius: 10px;
+}
+
+
+.productoCarrito {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+    padding: 10px;
+    background-color: #2D4263;
+    border-radius: 10px;
+}
+
+.productoCarrito p {
+    margin: 0;
+}
+
+.total {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    margin-top: 20px;
+}
+
+.total p {
+    font-size: 24px;
+}
+
+.total span {
+    font-weight: bold;
+    font-size: 24px;
+}
+
+
+.contenedorCompra button {
+    margin-top: 20px;
+    padding: 10px 20px;
+    background-color: #263143;
+    border: none;
+    border-radius: 10px;
+    color: white;
+    font-size: 18px;
+    cursor: pointer;
+    z-index: 1000;
+    /* Ajuste para asegurar que los botones sean visibles */
+}
+
+
+
+
+
+
+/* Añadido para corregir el tamaño de la imagen del carrito */
+.carrito {
+    width: 30px;
+    height: 30px;
+}
+
+/* Añadido para mejorar el estilo de los botones de las ventanas emergentes */
+.contenido-ventana form button,
+.contenido-ventana button {
+    width: 100%;
+    padding: 10px;
+    margin-top: 10px;
+    background-color: #263143;
+    border: none;
+    border-radius: 5px;
+    color: white;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.contenido-ventana form button:hover,
+.contenido-ventana button:hover {
+    background-color: #41546b;
+}
+
+.contenido-ventana button:last-child {
+    margin-top: 0;
+    background-color: #f44336;
+}
+
+.contenido-ventana button:last-child:hover {
+    background-color: #d32f2f;
+}
+
+/* Estilos para el botón del carrito */
+.carrito-button {
+    position: relative;
+    background: none;
+    border: none;
+}
+
+/* Estilos para el número en la burbuja */
+.numero-burbuja {
+    position: absolute;
+    top: -8px;
+    right: -8px;
+    background-color: rgb(22, 169, 228);
+    color: white;
+    border-radius: 50%;
+    width: 24px;
+    height: 24px;
+    font-size: 14px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}

@@ -1,0 +1,148 @@
+<header class="header" id="header">
+  <nav>
+    <ul>
+      <li><a (click)="showUserSection()">Usuarios</a></li>
+      <li><a (click)="showPublicationSection()">Publicaciones</a></li>
+      <li><a (click)="cerrarSesion()">Cerrar Sesión</a></li>
+    </ul>
+  </nav>
+</header>
+
+<div class="main">
+  <!-- Usuarios -->
+  <div class="contenedorPublicacion" id="mostrarPublicacion">
+    <div *ngIf="showUsers" class="usuarios">
+      <h2>Usuarios Registrados</h2>
+      <!-- Aquí puedes iterar sobre una lista de usuarios y mostrarlos en tarjetas -->
+      <div class="tarjeta-publicacion-container">
+        <div
+          *ngFor="let usuario of usuarios"
+          class="tarjeta-publicacion"
+          [ngClass]="{
+            aprobado: usuario.estado === 'Aprobado',
+            rechazado: usuario.estado === 'Rechazado',
+            pendiente: usuario.estado === 'Pendiente'
+          }"
+        >
+          <!-- Mostrar usuario en una tarjeta -->
+          <h2>{{ usuario.nombre_usuario }}</h2>
+          <p>{{ usuario.correo }}</p>
+          <p>{{ usuario.password }}</p>
+          <p>{{ usuario.rol }}</p>
+          <p>{{ usuario.estado }}</p>
+          <button
+            *ngIf="usuario.estado === 'Pendiente'"
+            class="boton-con-imagen"
+            (click)="rechazarUsuario(usuario.id_usuario)"
+          >
+            <img src="../../assets/img/rechazar.png" alt="Texto alternativo" />
+          </button>
+          <button
+            *ngIf="usuario.estado === 'Pendiente'"
+            class="boton-con-imagen"
+            (click)="aprobarUsuario(usuario.id_usuario)"
+          >
+            <img src="../../assets/img/aprobar.png" alt="Texto alternativo" />
+          </button>
+          <button
+            *ngIf="usuario.estado === 'Aprobado'"
+            (click)="rechazarUsuario(usuario.id_usuario)"
+            class="boton-con-imagen"
+          >
+            <img src="../../assets/img/rechazar.png" alt="Texto alternativo" />
+          </button>
+          <button
+            *ngIf="usuario.estado === 'Aprobado'"
+            (click)="pendienteUsuario(usuario.id_usuario)"
+            class="boton-con-imagen"
+          >
+            <img src="../../assets/img/reloj.png" alt="Texto alternativo" />
+          </button>
+          <button
+            *ngIf="usuario.estado === 'Rechazado'"
+            (click)="pendienteUsuario(usuario.id_usuario)"
+            class="boton-con-imagen"
+          >
+            <img src="../../assets/img/reloj.png" alt="Texto alternativo" />
+          </button>
+          <button
+            *ngIf="usuario.estado === 'Rechazado'"
+            (click)="aprobarUsuario(usuario.id_usuario)"
+            class="boton-con-imagen"
+          >
+            <img src="../../assets/img/aprobar.png" alt="Texto alternativo" />
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- Publicaciones -->
+  <div class="contenedorPublicacion" id="mostrarPublicacion">
+    <div *ngIf="showPublications" class="publicaciones">
+      <h2>Publicaciones</h2>
+      <!-- Aquí puedes iterar sobre una lista de publicaciones y mostrarlas en tarjetas -->
+      <div class="tarjeta-publicacion-container">
+        <div
+          *ngFor="let publicacion of publicaciones"
+          class="tarjeta-publicacion"
+          [ngClass]="{
+            aprobado: publicacion.estado === 'Aprobado',
+            rechazado: publicacion.estado === 'Rechazado',
+            pendiente: publicacion.estado === 'Pendiente'
+          }"
+        >
+          <!-- Mostrar publicación en una tarjeta -->
+          <h2>{{ publicacion.titulo_publicacion }}</h2>
+          <p>{{ publicacion.descripcion }}</p>
+          <p>{{ publicacion.precio_local }}</p>
+          <p>{{ publicacion.precio_sistema }}</p>
+          <p>{{ publicacion.fecha_publicacion }}</p>
+          <p>{{ publicacion.tipo_publicacion }}</p>
+          <p>{{ publicacion.estado }}</p>
+          <button
+            *ngIf="publicacion.estado === 'Pendiente'"
+            (click)="rechazarPublicacion(publicacion.id_publicacion)"
+            class="boton-con-imagen"
+          >
+            <img src="../../assets/img/rechazar.png" alt="Texto alternativo" />
+          </button>
+          <button
+            *ngIf="publicacion.estado === 'Pendiente'"
+            (click)="aprobarPublicacion(publicacion.id_publicacion)"
+            class="boton-con-imagen"
+          >
+            <img src="../../assets/img/aprobar.png" alt="Texto alternativo" />
+          </button>
+          <button
+            *ngIf="publicacion.estado === 'Aprobado'"
+            (click)="rechazarPublicacion(publicacion.id_publicacion)"
+            class="boton-con-imagen"
+          >
+            <img src="../../assets/img/rechazar.png" alt="Texto alternativo" />
+          </button>
+          <button
+            *ngIf="publicacion.estado === 'Aprobado'"
+            (click)="pendientePublicacion(publicacion.id_publicacion)"
+            class="boton-con-imagen"
+          >
+            <img src="../../assets/img/reloj.png" alt="Texto alternativo" />
+          </button>
+          <button
+            *ngIf="publicacion.estado === 'Rechazado'"
+            (click)="pendientePublicacion(publicacion.id_publicacion)"
+            class="boton-con-imagen"
+          >
+            <img src="../../assets/img/reloj.png" alt="Texto alternativo" />
+          </button>
+          <button
+            *ngIf="publicacion.estado === 'Rechazado'"
+            (click)="aprobarPublicacion(publicacion.id_publicacion)"
+            class="boton-con-imagen"
+          >
+            <img src="../../assets/img/aprobar.png" alt="Texto alternativo" />
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

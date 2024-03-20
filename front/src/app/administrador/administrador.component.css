@@ -1,0 +1,102 @@
+/* Estilos para el encabezado */
+.header {
+    font-size: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 70px;
+    top: 0;
+    position: fixed;
+    width: 100%;
+    padding: 0 20px;
+    background-color: #263143;
+}
+
+.header nav ul {
+    list-style: none;
+}
+
+.header nav ul li {
+    display: inline;
+    margin-right: 20px;
+}
+
+.header nav ul li a {
+    color: white;
+    text-decoration: none;
+}
+
+/* Estilos para el contenido principal */
+.main {
+    margin-top: 120px;
+    padding: 20px;
+}
+
+
+h2 {
+    text-align: center;
+    margin-bottom: 20px;
+    font-weight: 500;
+}
+
+/* Ajustes para los contenedores de tarjetas */
+.contenedorPublicacion {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+}
+
+
+
+.aprobado {
+    background-color: rgb(21, 121, 21);
+}
+
+.rechazado {
+    background-color: rgb(150, 10, 10);
+}
+
+.pendiente {
+    background-color: rgb(194, 194, 5);
+}
+
+.tarjeta-publicacion {
+    padding: 20px;
+    border-radius: 20px;
+    box-shadow: 0px 0px 5px 0px rgba(0, 0, 0, 0.75);
+}
+
+.tarjeta-publicacion-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+}
+
+.tarjeta-publicacion:hover {
+    background-color: #97999c;
+}
+
+.tarjeta-publicacion h3 {
+    font-size: 20px;
+    margin-bottom: 10px;
+}
+
+.tarjeta-publicacion p {
+    margin-bottom: 10px;
+}
+
+.boton-con-imagen {
+    /* Estilos para el botón */
+    display: inline-block;
+    padding: 10px 20px;
+    border: none;
+    background-color: transparent;
+    cursor: pointer;
+  }
+  
+  .boton-con-imagen img {
+    /* Estilos para la imagen dentro del botón */
+    width: 50px; /* Ajusta el tamaño de la imagen según sea necesario */
+    height: 50px;
+    margin-right: 5px; /* Espacio entre la imagen y el texto */
+  }

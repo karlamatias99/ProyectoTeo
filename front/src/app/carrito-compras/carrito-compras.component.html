@@ -1,0 +1,90 @@
+<header id="header">
+  <li><a routerLink="/Vistausuario">Regresar</a></li>
+  <h1>Carrito de Compras</h1>
+  <div>
+    <img
+          id="carrito"
+          class="carrito"
+          src="../../assets/img/anadir-al-carrito.png"
+          alt=""
+        />
+    <div id="numero"></div>
+  </div>
+  <form (ngSubmit)="buscarProducto()" class="formulario-busqueda">
+    <input type="text" id="busqueda" />
+    <button type="submit" class="boton-busqueda">Buscar</button>
+  </form>
+</header>
+
+<main>
+  <div id="contenedor" class="contenedor">
+    <input type="hidden" id="nombreProducto" name="nombreProducto" />
+    <input type="hidden" id="precioProducto" name="precioProducto" />
+  </div>
+</main>
+
+<div id="contenedorCompra">
+  <div class="informacionCompra" id="informacionCompra">
+    <span id="numero"></span>
+    <h2>Tu Carrito</h2>
+    <p class="x" id="x">x</p>
+  </div>
+
+  <div class="productosCompra" id="productosCompra"></div>
+  <div class="total" id="total"></div>
+  <button (click)="eliminarCarrito()">Vaciar Carrito</button>
+  <button (click)="abrirVentana()">Ingresar Tarjeta Credito/Debito</button>
+  <button (click)="abrirVentanaPedido()">Finalizar Compra</button>
+</div>
+
+<div class="ventana-emergente" id="ventana">
+  <div class="contenido-ventana">
+    <form
+      (ngSubmit)="guardarTarjeta()"
+      class="FormularioTarjeta"
+      id="RegistroTarjeta"
+    >
+      <h2>Tarjeta de Credito/Debito</h2>
+      <input type="number" placeholder="Numero Tarjeta" id="numeroTarjeta" />
+      <input
+        type="text"
+        placeholder="Nombre Usuario Tarjeta"
+        id="nombreUsuario"
+      />
+      <input
+        type="date"
+        id="vencimiento"
+        name="vencimiento"
+        min="2023-01-01"
+        max="2023-12-31"
+      />
+      <input type="number" placeholder="CVV" id="CVV" />
+      <button type="submit">Ingresar Forma de Pago</button>
+    </form>
+    <button (click)="cerrarVentana()">Cancelar</button>
+  </div>
+</div>
+
+<div class="ventana-emergente" id="ventanaPedido">
+  <div class="contenido-ventana">
+    <form
+      (ngSubmit)="realizarPedido()"
+      class="FormularioPedido"
+      id="RegistroPedido"
+    >
+      <h1>Estas a unos pasos de realizar tu pedido</h1>
+      <input type="text" placeholder="Nombre" id="usuarioPedido" />
+      <input type="text" placeholder="Direccion" id="direccion" />
+      <input type="number" placeholder="Telefono" id="telefono" />
+      <input type="number" placeholder="Numero Tarjeta" id="Tarjeta" />
+      <h1>Total de tu Compra:</h1>
+      <p id="totalcompra"></p>
+      <h1>Fecha de Pedido:</h1>
+      <p id="fecha-actual"></p>
+      <h1>Fecha de Entrega Aproximada:</h1>
+      <p id="fechaEntrega"></p>
+      <button type="submit">Realizar Pedido</button>
+    </form>
+    <button (click)="cerrarVentanaPedido()">Cancelar</button>
+  </div>
+</div>

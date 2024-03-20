@@ -1,0 +1,34 @@
+.conversation-card {
+  height: 300px; /* Altura máxima de la tarjeta */
+  overflow-y: auto; /* Agrega un desplazamiento vertical */
+  border: 1px solid #ccc; /* Borde para la tarjeta */
+  border-radius: 10px; /* Borde redondeado */
+  padding: 10px; /* Espaciado interno */
+}
+
+.container {
+  width: 100%; /* Ancho completo dentro de la tarjeta */
+}
+
+.card {
+  margin-bottom: 10px; /* Espaciado entre tarjetas */
+}
+
+.card-body {
+  word-wrap: break-word; /* Rompe las palabras largas */
+}
+
+/* Estilo para los mensajes recibidos */
+.card.received {
+  background-color: #e6e6e6; /* Color de fondo para los mensajes recibidos */
+}
+
+/* Estilo para los mensajes enviados */
+.card.sent {
+  background-color: #c1f0c1; /* Color de fondo para los mensajes enviados */
+}
+
+/* Alinea los mensajes enviados a la derecha */
+.sent .card-body {
+  text-align: right;
+}

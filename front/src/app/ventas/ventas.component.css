@@ -1,0 +1,131 @@
+html, body {
+    height: 100%; /* Establece la altura de html y body al 100% */
+    margin: 0; /* Elimina cualquier margen */
+     }
+
+.body {
+    font-family: 'Space Grotesk', sans-serif;
+    background-color: #141C29;
+    padding-top: 0px;
+    margin: 0;
+    height: 100vh;
+    overflow: hidden;
+}
+
+.header {
+    font-size: 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px;
+}
+
+.header nav ul {
+    list-style: none;
+    display: flex;
+}
+
+.header nav ul li {
+    margin-right: 20px;
+}
+
+.header nav ul li a {
+    text-decoration: none;
+    color: white;
+}
+
+.header nav ul li:hover {
+    background-color: #2D4263;
+    border-radius: 5px;
+}
+
+.separado {
+    margin-left: auto;
+}
+
+.main {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+}
+
+.contenedor {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin: 50px auto 45px auto;
+    width: 800px;
+    flex-wrap: wrap;
+    gap: 40px;
+}
+
+.contenedor>div {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    background-color: #2D4263;
+    height: 100vh;
+    width: 900px;
+    border-radius: 20px;
+    flex-direction: column;
+    padding-top: 35px;
+    gap: 25px;
+    flex: 1 1 300px;
+}
+
+.contenedor>div>form {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.contenedor>div>form>input,
+select {
+    border-radius: 5px;
+    border: none;
+    padding: 5px;
+    color: black;
+}
+
+.option {
+    color: black;
+}
+
+.contenedor .button {
+    margin-top: 20px;
+    height: 30px;
+    border-radius: 7px;
+    border: none;
+    color: black;
+}
+
+h2 {
+    text-align: center;
+    margin-bottom: 20px;
+    font-weight: 300;
+}
+
+.publicaciones-lista {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 20px;
+  }
+  
+  .publicacion {
+    border: 1px solid #ccc;
+    padding: 10px;
+  }
+  
+  .titulo {
+    font-weight: bold;
+  }
+  
+  .descripcion {
+    margin-top: 5px;
+  }
+  
+  .precio {
+    margin-top: 5px;
+    font-style: italic;
+  }

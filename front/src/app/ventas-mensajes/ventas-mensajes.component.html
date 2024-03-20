@@ -1,0 +1,39 @@
+
+
+<div class="conversation-card">
+  <div class="container">
+    <p>El id de la publicación es: {{ idPublicacion }}</p>
+    <!-- Itera sobre cada mensaje recibido -->
+    <div *ngFor="let mensaje of mensajesRecibidos" class="card received">
+      <div class="card-body">
+        <p class="card-text">
+          <strong>{{ mensaje.usuario_emisor }}:</strong> {{ mensaje.mensaje }}
+        </p>
+        <p class="card-text">{{ mensaje.fecha_mensaje }}</p>
+      </div>
+    </div>
+
+    <!-- Itera sobre cada mensaje enviado -->
+    <div *ngFor="let mensaje of mensajesEnviados" class="card sent">
+      <div class="card-body">
+        <p class="card-text">
+          <strong>{{ mensaje.usuario_emisor }}:</strong> {{ mensaje.mensaje }}
+        </p>
+        <p class="card-text">{{ mensaje.fecha_mensaje }}</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Formulario para enviar mensajes -->
+<div class="input-container card">
+  <div class="card-body">
+    <div class="input-container">
+      <textarea
+        [(ngModel)]="mensaje"
+        placeholder="Escribe un mensaje"
+      ></textarea>
+      <button (click)="enviarMensaje()">Enviar</button>
+    </div>
+  </div>
+</div>

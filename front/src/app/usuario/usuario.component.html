@@ -1,0 +1,53 @@
+<div class="body">
+  <div class="header">
+    <nav>
+      <ul>
+        <li><a (click)="showPublishForm()">Publicar</a></li>
+        <li><a (click)="showEditForm()">Editar</a></li>
+        <li><a>Cerrar Sesion</a></li>
+        <li class="separado"><a href="#">Usuario</a></li>
+      </ul>
+    </nav>
+  </div>
+  <div class="main">
+    <div class="contenedor">
+      <!-- Publicar -->
+      <div class="publicar" *ngIf="showPublish">
+        <h2>Publicar</h2>
+        <form>
+          <label>Titulo Publicacion</label>
+          <input type="text" id="publicar" name="tituloPublicacion" />
+
+          <label>Descripcion</label>
+          <input
+            type="text"
+            id="descripcion"
+            name="descripcion"
+          />
+
+          <label>Precio Modena Local</label>
+          <input type="number" id="monedaLocal" />
+
+          <label>Precio Moneda Sistema</label>
+          <input type="number" id="monedaSistema" />
+
+          <label>Imagen</label>
+          <input type="String" id="ImagenAñadir" />
+
+          <fieldset>
+            <legend>Tipo Publicacion</legend>
+
+          </fieldset>
+          <input class="button" type="button" id="botonAñadir" value="Añadir" />
+        </form>
+      </div>
+      <!-- Editar -->
+      <div class="editar" *ngIf="showEdit">
+        <h2>Editar</h2>
+        <form>
+          <!-- Aquí va el formulario de editar productos -->
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

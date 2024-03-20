@@ -1,0 +1,20 @@
+<div class="container">
+    <h2>Chat con {{ data.destinatario }}</h2>
+    <div class="chat-container">
+      <!-- Mostrar mensajes enviados por el usuario logueado -->
+      <div class="message sent" *ngFor="let mensaje of mensajesEnviados">
+        <p>{{ mensaje.mensaje }}</p>
+        <small>{{ mensaje.fecha_mensaje }}</small>
+      </div>
+      <!-- Mostrar mensajes recibidos del usuario destinatario -->
+      <div class="message received" *ngFor="let mensaje of mensajesRecibidos">
+        <p>{{ mensaje.mensaje }}</p>
+        <small>{{ mensaje.fecha_mensaje }}</small>
+      </div>
+    </div>
+    <div class="input-container">
+      <textarea [(ngModel)]="mensaje" placeholder="Escribe un mensaje"></textarea>
+      <button (click)="enviarMensaje()">Enviar</button>
+    </div>
+  </div>
+  
