@@ -2,27 +2,103 @@ const mysql = require('mysql');
 const db = require('../conection/db');
 
 //Ingresar Publicacion
-const IngresoPubicacion = async (req, res) => {
-    const { titulo_publicacion, descripcion, precio_local, precio_sistema, tipo_publicacion, imagen, usuario_publicacion } = req.body;
-    const estado = "Pendiente";
-    // Obtener la fecha actual del sistema
-    const fecha_publicacion = new Date().toISOString(); // Convertir la fecha a formato ISO para almacenarla en la base de datos
-    //const usuario_publicacion = "3";
+const IngresoPublicacion = async (req, res) => {
+    try {
+        console.log('Datos recibidos en req.body:', req.body); // Registrar los datos recibidos del frontend
 
-    const query = 'INSERT INTO publicacion (titulo_publicacion, descripcion, precio_local, precio_sistema, fecha_publicacion, tipo_publicacion, imagen, estado, usuario_publicacion) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)';
-    const values = [titulo_publicacion, descripcion, precio_local, precio_sistema, fecha_publicacion, tipo_publicacion, imagen, estado, usuario_publicacion];
+        const { titulo_publicacion, descripcion, precio_local, precio_sistema, tipo_publicacion, imagen, usuario_publicacion, fecha_inicio, fecha_fin, remuneracion } = req.body;
+        let estado = "Pendiente"; // Estado por defecto
 
-    db.query(query, values, (err, result) => {
-        if (err) {
-            console.error('Error al ingresar publicacion:', err);
-            res.status(500).json({ estado: false, respuesta: 'Error al ingresar publicacion' }); // Envía un mensaje de error
-            return;
+        // Obtener la fecha actual del sistema
+        const fecha_publicacion = new Date().toISOString(); // Convertir la fecha a formato ISO para almacenarla en la base de datos
+
+        // Validar si el tipo de publicación es "voluntariado"
+        if (tipo_publicacion === "Voluntariado") {
+            // Si es un voluntariado, verificar que se haya ingresado la fecha de inicio y de fin
+            const { fecha_inicio, fecha_fin, remuneracion } = req.body;
+            if (!fecha_inicio || !fecha_fin) {
+                return res.status(400).json({ estado: false, respuesta: 'Para un voluntariado, debe especificar la fecha de inicio y de fin' });
+            }
+        } else {
+            // Si no es un voluntariado, verificar que se haya ingresado un precio válido
+            if (!precio_local || !precio_sistema) {
+                return res.status(400).json({ estado: false, respuesta: 'Para una venta, debe especificar el precio local y el precio del sistema' });
+            }
         }
 
-        res.status(200).json({ estado: true, respuesta: 'Publicacion ingresada exitosamente', id_publicacion: result.insertId });
-    });
+        // Consulta para contar cuántas publicaciones ha realizado el usuario
+        const countQuery = 'SELECT COUNT(*) AS total FROM publicacion WHERE usuario_publicacion = ?';
+        db.query(countQuery, [usuario_publicacion], async (err, result) => {
+            if (err) {
+                console.error('Error al contar publicaciones del usuario:', err);
+                return res.status(500).json({ estado: false, respuesta: 'Error al verificar cantidad de publicaciones' });
+            }
+
+            const totalPublicaciones = result[0].total;
+
+            // Si el usuario ha realizado menos de 5 publicaciones, el estado será "Pendiente"
+            if (totalPublicaciones < 5) {
+                estado = "Pendiente";
+            } else {
+                estado = "Aprobado";
+            }
+
+            let query;
+            let values;
+
+            if (tipo_publicacion === "Voluntariado") {
+                query = 'INSERT INTO publicacion (titulo_publicacion, descripcion, fecha_publicacion, tipo_publicacion, imagen, estado, usuario_publicacion, fecha_inicio, fecha_fin, remuneracion) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)';
+                values = [titulo_publicacion, descripcion, fecha_publicacion, tipo_publicacion, imagen, estado, usuario_publicacion, fecha_inicio, fecha_fin, remuneracion];
+            } else {
+                query = 'INSERT INTO publicacion (titulo_publicacion, descripcion, precio_local, precio_sistema, fecha_publicacion, tipo_publicacion, imagen, estado, usuario_publicacion) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)';
+                values = [titulo_publicacion, descripcion, precio_local, precio_sistema, fecha_publicacion, tipo_publicacion, imagen, estado, usuario_publicacion];
+            }
+
+            // Insertar la publicación con el estado correspondiente
+            db.query(query, values, (err, result) => {
+                if (err) {
+                    console.error('Error al ingresar publicación:', err);
+                    return res.status(500).json({ estado: false, respuesta: 'Error al ingresar publicación' });
+                }
+
+                console.log('Publicación ingresada correctamente:', result);
+                return res.status(200).json({ estado: true, respuesta: 'Publicación ingresada exitosamente', id_publicacion: result.insertId });
+            });
+        });
+    } catch (error) {
+        console.error('Error en la función IngresoPublicacion:', error);
+        return res.status(500).json({ estado: false, respuesta: 'Error en el servi dor al procesar la solicitud' });
+    }
 };
 
+
+
+
+
+
+
+const IngresoPublicacionCompra = async (req, res) => {
+    const { titulo, descripcion, tipo_publicacion, imagen, usuario_publicacion } = req.body;
+
+    db.query([usuario_publicacion], async (err, result) => {
+        // Obtener la fecha actual del sistema
+        const fecha_publicacion = new Date().toISOString(); // Convertir la fecha a formato ISO para almacenarla en la base de datos
+
+        const query = 'INSERT INTO publicacion_compra (titulo, descripcion, fecha_publicacion, tipo_publicacion, imagen, usuario_publicacion) VALUES (?, ?, ?, ?, ?, ?)';
+        const values = [titulo, descripcion, fecha_publicacion, tipo_publicacion, imagen, usuario_publicacion];
+
+        // Insertar la publicación con el estado correspondiente
+        db.query(query, values, (err, result) => {
+            if (err) {
+                console.error('Error al ingresar publicación:', err);
+                res.status(500).json({ estado: false, respuesta: 'Error al ingresar publicación' });
+                return;
+            }
+
+            res.status(200).json({ estado: true, respuesta: 'Publicación ingresada exitosamente', id_publicacion: result.insertId });
+        });
+    });
+};
 
 const MostrarPublicaciones = (req, res) => {
     const query = 'SELECT * FROM publicacion';
@@ -38,19 +114,45 @@ const MostrarPublicaciones = (req, res) => {
     });
 };
 
-const buscarPubicacion = async (req, res) => {
-    const nombreProducto = req.query.titulo_publicacion;
 
+const MostrarPublicacionesCompras = (req, res) => {
+    const query = 'SELECT * FROM publicacion_compra';
+
+    db.query(query, (err, result) => {
+        if (err) {
+            console.error('Error al obtener publicacion:', err);
+            res.status(500).json({ error: 'Error al obtener publicacion' });
+            return;
+        }
+
+        res.status(200).json(result);
+    });
+};
+
+const buscarPublicacion = async (req, res) => {
+    const nombreProducto = req.params.titulo_publicacion;
     try {
-        const productos = await pool.query(
-            'SELECT * FROM publicacion WHERE titulo_publicacion LIKE ?', [`%${nombreProducto}%`]
+
+        db.query(
+            'SELECT * FROM publicacion WHERE titulo_publicacion LIKE ?',
+            [`%${nombreProducto}%`],
+            (error, results) => {
+                if (error) {
+                    console.error(error.message);
+                    res.status(500).send('Error en el servidor');
+                } else {
+                    res.json(results);
+                }
+            }
         );
-        res.json(productos);
     } catch (error) {
         console.error(error.message);
         res.status(500).send('Error en el servidor');
     }
 };
+
+
+
 
 const EditarPublicacion = async (req, res) => {
     const { id } = req.params;
@@ -102,7 +204,7 @@ const obtenerPublicacionesPorUsuario = (req, res) => {
             return;
         }
 
-        res.status(200).json(results); 
+        res.status(200).json(results);
         console.log(results);
     });
 };
@@ -128,11 +230,13 @@ const obtenerIDPublicacion = (req, res) => {
 
 
 module.exports = {
-    IngresoPubicacion,
+    IngresoPublicacion,
     EditarPublicacion,
     MostrarPublicaciones,
-    buscarPubicacion,
+    buscarPublicacion,
     MostrarPublicacioneAprobadas,
     obtenerPublicacionesPorUsuario,
-    obtenerIDPublicacion
+    obtenerIDPublicacion,
+    MostrarPublicacionesCompras,
+    IngresoPublicacionCompra
 };

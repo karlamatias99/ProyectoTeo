@@ -1,4 +1,4 @@
-import { NgFor, NgIf } from '@angular/common';
+import { NgClass, NgFor, NgIf } from '@angular/common';
 import { Component, Input } from '@angular/core';
 import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { CookieService } from 'ngx-cookie-service';
@@ -13,14 +13,14 @@ import { Router } from '@angular/router';
   standalone: true,
   templateUrl: './ventas.component.html',
   styleUrl: './ventas.component.css',
-  imports: [NgIf, FormsModule, ReactiveFormsModule, NgFor, MensajesVendedorComponent]
+  imports: [NgIf, FormsModule, ReactiveFormsModule, NgFor, MensajesVendedorComponent, NgClass]
 })
 export class VentasComponent {
 
   @Input() idPublicacion: number | undefined;
   public formPublicacion: FormGroup;
   public formEditar: FormGroup;
-  usuario_publicacion: number;
+  usuario_publicacion: string;
   publicaciones: any[] = [];
   public mostrarMensajes: boolean = false;
   public mensajeCreate: any;
@@ -34,19 +34,23 @@ export class VentasComponent {
     public dialog: MatDialog,
     private router: Router
   ) {
-    //obtener el id del usuario registrado
-    this.usuario_publicacion = parseInt(this.cookiesService.get('usuario'), 10);
+    //obtener el usuario 
+
+    this.usuario_publicacion = this.cookiesService.get('usuario');
     //inicializamos el formulario
     this.formPublicacion = this.formBuilder.group({
 
       titulo_publicacion: ['', [Validators.required]],
       descripcion: ['', [Validators.required]],
-      precio_local: ['', [Validators.required]],
-      precio_sistema: ['', [Validators.required]],
+      precio_local: [''],
+      precio_sistema: [''],
       fecha_publicacion: ['', [Validators.required]],
-      tipo_publicacion: ['', [Validators.required]],
+      tipo_publicacion: ['Venta', Validators.required],
       imagen: ['', [Validators.required]],
       usuario_publicacion: ['', [Validators.required]],
+      fecha_inicio: [''], // Campo opcional
+      fecha_fin: [''], // Campo opcional
+      remuneracion: [''] // Campo opcional
     });
 
     //inicializamos el formulario para editar
@@ -54,12 +58,15 @@ export class VentasComponent {
 
       titulo_publicacion: ['', [Validators.required]],
       descripcion: ['', [Validators.required]],
-      precio_local: ['', [Validators.required]],
-      precio_sistema: ['', [Validators.required]],
+      precio_local: [''],
+      precio_sistema: [''],
       fecha_publicacion: ['', [Validators.required]],
       tipo_publicacion: ['', [Validators.required]],
       imagen: ['', [Validators.required]],
       usuario_publicacion: ['', [Validators.required]],
+      fecha_inicio: [''], // Campo opcional
+      fecha_fin: [''], // Campo opcional
+      remuneracion: [''] // Campo opcional
     });
   }
 
@@ -97,41 +104,49 @@ export class VentasComponent {
     );
     this.showPublish = false;
     this.showEdit = false;
-    this.mostrarMensajes = false
+    this.mostrarMensajes = false;
   }
 
-  public crearPublicacion(): void {
-    //extraer los valores de las propiedades del juego de los componentes del form
-    const titulo_publicacion = this.formPublicacion.controls['titulo_publicacion'].value;
-    const descripcion = this.formPublicacion.controls['descripcion'].value;
-    const precio_local = this.formPublicacion.controls['precio_local'].value;
-    const precio_sistema = this.formPublicacion.controls['precio_sistema'].value;
-    const tipo_publicacion = this.formPublicacion.controls['tipo_publicacion'].value;
-    const imagen = this.formPublicacion.controls['imagen'].value;
+  crearPublicacion(): void {
+    // Obtener los valores del formulario
+    const nuevaPublicacion = this.formPublicacion.value;
 
+    // Agregar el usuario de la publicación que está en la sesión
+    nuevaPublicacion.usuario_publicacion = this.usuario_publicacion;
 
-    let nuevaPublicacion = new Object({
-      usuario_publicacion: this.usuario_publicacion,
-      titulo_publicacion: titulo_publicacion,
-      descripcion: descripcion,
-      precio_local: precio_local,
-      precio_sistema: precio_sistema,
-      tipo_publicacion: tipo_publicacion,
-      imagen: imagen,
-    });
-    console.log('Datos enviados para crear usuario:', nuevaPublicacion);
-    this.publicacionService.crearPublicacion(nuevaPublicacion).subscribe((r) => {
-      if (r.estado) {
-        window.alert('Publicacion creada exitosamente');
-        //alert(r.respuesta + '\nEl código de la publicación es ' + r.id_publicacion); //mostramos el mensaje de confirmacion
-        // Borramos los campos del formulario después de que la publicación se haya creado con éxito
+    // Crear un nuevo objeto con los campos específicos para voluntariado
+    const datosOrdenados = {
+      titulo_publicacion: nuevaPublicacion.titulo_publicacion,
+      descripcion: nuevaPublicacion.descripcion,
+      precio_local: nuevaPublicacion.precio_local, // Mantener campo para venta
+      precio_sistema: nuevaPublicacion.precio_sistema, // Mantener campo para venta
+      tipo_publicacion: nuevaPublicacion.tipo_publicacion,
+      imagen: nuevaPublicacion.imagen,
+      usuario_publicacion: nuevaPublicacion.usuario_publicacion,
+      fecha_inicio: nuevaPublicacion.fecha_inicio, // Mantener campo para voluntariado
+      fecha_fin: nuevaPublicacion.fecha_fin, // Mantener campo para voluntariado
+      remuneracion: nuevaPublicacion.remuneracion, // Mantener campo para voluntariado
+      
+    };
+
+    // Llamar al servicio para crear la publicación
+    console.log('Datos enviados para crear la publicación:', datosOrdenados); // Imprimir datos en la consola
+    this.publicacionService.crearPublicacion(datosOrdenados).subscribe((response: any) => {
+      if (response.estado) {
+        window.alert('Publicación creada exitosamente');
         this.formPublicacion.reset();
       } else {
-        window.alert('Error al crear publicacion' + r.respuesta);
+        window.alert('Error al crear publicación: ' + response.respuesta);
       }
-      this.mensajeCreate = r.respuesta;
+      this.mensajeCreate = response.respuesta;
     });
   }
+
+
+
+
+
+
 
 
   public editarPublicacion(): void { }

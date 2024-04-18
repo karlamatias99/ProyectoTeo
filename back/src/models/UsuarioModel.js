@@ -66,7 +66,7 @@ const EditarUsuario = async (req, res) => {
     const { id } = req.params;
     const { estado } = req.body;
 
-    const query = 'UPDATE usuario SET estado = ? WHERE id_usuario = ?';
+    const query = 'UPDATE usuario SET estado = ? WHERE correo = ?';
 
     const values = [estado, id];
 
@@ -197,10 +197,52 @@ const User = (req, res) => {
     });
 };
 
+const obtenerSaldo = (req, res) => {
+    const usuario = req.params.usuario;
+    const query = 'SELECT monedas FROM usuario WHERE nombre_usuario = ?';
+
+    db.query(query, [usuario], (err, results) => {
+        if (err) {
+            console.error('Error al obtener monedas:', err);
+            res.status(500).json({ error: 'Error al obtener monedas' });
+            return;
+        }
+
+        res.status(200).json(results);
+        console.log(results);
+    });
+};
+
+
+const EditarSaldo = async (req, res) => {
+    const { correo, monedas } = req.params; // Utiliza req.params para obtener los valores de los parámetros
+
+    const query = 'UPDATE usuario SET monedas = ? WHERE correo = ?';
+
+    const values = [monedas, correo];
+
+    db.query(query, values, (err, result) => {
+        if (err) {
+            console.error('Error al editar usuario:', err);
+            return res.status(500).json({ error: 'Error interno del servidor al editar usuario' });
+        }
+
+        if (result.affectedRows === 0) {
+            // Si no se actualizó ningún registro, significa que el usuario no existe
+            return res.status(404).json({ error: 'Usuario no encontrado' });
+        }
+
+        return res.status(200).json({ message: 'Usuario editado exitosamente' });
+    });
+};
+
+
 module.exports = {
     IngresoUsuario,
     LoginUsuario,
     MostrarUsuarios,
     User,
-    EditarUsuario
+    EditarUsuario,
+    obtenerSaldo,
+    EditarSaldo
 };

@@ -1,46 +1,112 @@
-<div class="body">
-  <div class="header">
-    <nav>
-      <ul>
-        <li><a (click)="showPublishForm()">Publicar</a></li>
-        <li><a (click)="showEditForm()">Editar</a></li>
-        <li>
-          <a (click)="mostrarPublicacionesUsuario()">Mis Publicaciones</a>
-        </li>
-        <li><a mat-button (click)="showMessages()">Abrir mensajes</a></li>
-        <li><a (click)="cerrarSesion()">Cerrar Sesión</a></li>
-      </ul>
-    </nav>
-  </div>
-  <div class="main">
-    <div class="contenedor">
-      <!-- Aquí se mostrarán los mensajes -->
-      <app-ventas-mensajes
-        *ngIf="mostrarMensajes && idPublicacion"
-        [usuario]="usuario_publicacion"
-        [idPublicacion]="idPublicacion"
+<header class="header" id="header">
+  <nav>
+    <ul>
+      <li>
+        <a (click)="showPublishForm()">
+          <img
+            src="../../assets/img/publicacion.png"
+            alt="Icono Publicación"
+            style="width: 50px; height: 50px"
+          />
+          Publicar</a
+        >
+      </li>
+      <li>
+        <a (click)="showEditForm()">
+          <img
+            src="../../assets/img/publicacion.png"
+            alt="Icono Publicación"
+            style="width: 50px; height: 50px"
+          />
+          Editar</a
+        >
+      </li>
+      <li>
+        <a (click)="mostrarPublicacionesUsuario()">
+          <img
+            src="../../assets/img/red-social.png"
+            alt="Icono Publicación"
+            style="width: 50px; height: 50px"
+          />
+          Mis Publicaciones</a
+        >
+      </li>
+      <li>
+        <a mat-button (click)="showMessages()">
+          <img
+            src="../../assets/img/charla.png"
+            alt="Icono Publicación"
+            style="width: 50px; height: 50px"
+          />
+          Chats</a
+        >
+      </li>
+      <li>
+        <a (click)="cerrarSesion()">
+          <img
+            src="../../assets/img/cerrar-sesion.png"
+            alt="Icono Publicación"
+            style="width: 50px; height: 50px"
+          />Cerrar Sesión</a
+        >
+      </li>
+    </ul>
+  </nav>
+</header>
+
+<div class="main">
+  <!-- Aquí se mostrarán los mensajes -->
+  <app-ventas-mensajes
+    *ngIf="mostrarMensajes && idPublicacion"
+    [usuario]="usuario_publicacion"
+    [idPublicacion]="idPublicacion"
+  >
+  </app-ventas-mensajes>
+  
+  <!-- Publicar -->
+  <div class="contenedor">
+    <div class="publicar" *ngIf="showPublish">
+      <h2>Publicar</h2>
+      <form
+        [formGroup]="formPublicacion"
+        (submit)="crearPublicacion()"
+        class="form2"
+        id="form"
       >
-      </app-ventas-mensajes>
+        <label>Titulo Publicacion</label>
+        <input
+          type="text"
+          id="titulo_publicacion"
+          formControlName="titulo_publicacion"
+        />
 
-      <!-- Publicar -->
-      <div class="publicar" *ngIf="showPublish">
-        <h2>Publicar</h2>
-        <form
-          [formGroup]="formPublicacion"
-          (submit)="crearPublicacion()"
-          class="form2"
-          id="form"
+        <label>Descripcion</label>
+        <input type="text" id="descripcion" formControlName="descripcion" />
+
+        <!-- Mostrar campos según el tipo de publicación seleccionado -->
+        <div
+          *ngIf="
+            formPublicacion.controls['tipo_publicacion'].value ===
+            'Voluntariado'
+          "
         >
-          <label>Titulo Publicacion</label>
+          <label>Fecha de Inicio</label>
+          <input type="date" id="fecha_inicio" formControlName="fecha_inicio" />
+
+          <label>Fecha de Fin</label>
+          <input type="date" id="fecha_fin" formControlName="fecha_fin" />
+
+          <label>Remuneración</label>
           <input
-            type="text"
-            id="titulo_publicacion"
-            formControlName="titulo_publicacion"
+            type="number"
+            id="remuneracion"
+            formControlName="remuneracion"
           />
+        </div>
 
-          <label>Descripcion</label>
-          <input type="text" id="descripcion" formControlName="descripcion" />
-
+        <div
+          *ngIf="formPublicacion.controls['tipo_publicacion'].value === 'Venta'"
+        >
           <label>Precio Modena Local</label>
           <input
             type="number"
@@ -54,123 +120,129 @@
             id="precio_sistema"
             formControlName="precio_sistema"
           />
+        </div>
 
-          <fieldset>
-            <legend>Tipo Publicacion</legend>
-            <label>
-              <input
-                type="radio"
-                name="tipo_publicacion"
-                value="Venta"
-                checked="true"
-                formControlName="tipo_publicacion"
-              />
-              <span>Venta</span>
-            </label>
-            <label>
-              <input
-                type="radio"
-                name="tipo_publicacion"
-                value="Voluntariado"
-                formControlName="tipo_publicacion"
-              />
-              <span>Voluntariado</span>
-            </label>
-          </fieldset>
+        <label>Imagen</label>
+        <input
+          type="file"
+          id="imagen"
+          formControlName="imagen"
+          accept="image/*"
+        />
 
-          <label>Imagen</label>
-          <input type="String" id="imagen" formControlName="imagen" />
+        <fieldset>
+          <legend>Tipo Publicacion</legend>
+          <label>
+            <input
+              type="radio"
+              name="tipo_publicacion"
+              value="Venta"
+              formControlName="tipo_publicacion"
+            />
+            <span>Venta</span>
+          </label>
+          <label>
+            <input
+              type="radio"
+              name="tipo_publicacion"
+              value="Voluntariado"
+              formControlName="tipo_publicacion"
+            />
+            <span>Voluntariado</span>
+          </label>
+        </fieldset>
 
-          <button>Ingresar Publicacion</button>
-        </form>
-      </div>
-      <!-- Editar -->
-      <div class="editar" *ngIf="showEdit">
-        <h2>Editar</h2>
-        <form
-          [formGroup]="formEditar"
-          (submit)="editarPublicacion()"
-          class="form2"
-          id="form"
+        <button>Ingresar Publicacion</button>
+      </form>
+    </div>
+  </div>
+
+  <!-- Editar -->
+  <div class="contenedor">
+    <div class="publicar" *ngIf="showEdit">
+      <h2>Editar</h2>
+      <form
+        [formGroup]="formEditar"
+        (submit)="editarPublicacion()"
+        class="form2"
+        id="form"
+      >
+        <label>Titulo Publicacion</label>
+        <input
+          type="text"
+          id="titulo_publicacion"
+          formControlName="titulo_publicacion"
+        />
+
+        <label>Descripcion</label>
+        <input type="text" id="descripcion" formControlName="descripcion" />
+
+        <label>Precio Modena Local</label>
+        <input type="number" id="precio_local" formControlName="precio_local" />
+
+        <label>Precio Moneda Sistema</label>
+        <input
+          type="number"
+          id="precio_sistema"
+          formControlName="precio_sistema"
+        />
+
+        <fieldset>
+          <legend>Tipo Publicacion</legend>
+          <label>
+            <input
+              type="radio"
+              name="tipo_publicacion"
+              value="Venta"
+              checked="true"
+              formControlName="tipo_publicacion"
+            />
+            <span>Venta</span>
+          </label>
+          <label>
+            <input
+              type="radio"
+              name="tipo_publicacion"
+              value="Voluntariado"
+              formControlName="tipo_publicacion"
+            />
+            <span>Voluntariado</span>
+          </label>
+        </fieldset>
+
+        <label>Imagen</label>
+        <input
+          type="file"
+          id="imagen"
+          formControlName="imagen"
+          accept="image/*"
+        />
+        <button>Ingresar Publicacion</button>
+      </form>
+    </div>
+  </div>
+  
+  <!-- Mis Publicaciones -->
+  <div class="contenedorPublicacion" id="mostrarPublicacion">
+    <div *ngIf="publicacionesUsuario.length > 0" class="publicaciones">
+      <h2>Mis Publicaciones</h2>
+      <div class="tarjeta-publicacion-container">
+        <div
+          *ngFor="let publicacion of publicacionesUsuario"
+          class="tarjeta-publicacion"
+          [ngClass]="{
+            aprobado: publicacion.estado === 'Aprobado',
+            rechazado: publicacion.estado === 'Rechazado',
+            pendiente: publicacion.estado === 'Pendiente'
+          }"
         >
-          <label>Titulo Publicacion</label>
-          <input
-            type="text"
-            id="titulo_publicacion"
-            formControlName="titulo_publicacion"
-          />
-
-          <label>Descripcion</label>
-          <input type="text" id="descripcion" formControlName="descripcion" />
-
-          <label>Precio Modena Local</label>
-          <input
-            type="number"
-            id="precio_local"
-            formControlName="precio_local"
-          />
-
-          <label>Precio Moneda Sistema</label>
-          <input
-            type="number"
-            id="precio_sistema"
-            formControlName="precio_sistema"
-          />
-
-          <fieldset>
-            <legend>Tipo Publicacion</legend>
-            <label>
-              <input
-                type="radio"
-                name="tipo_publicacion"
-                value="Venta"
-                checked="true"
-                formControlName="tipo_publicacion"
-              />
-              <span>Venta</span>
-            </label>
-            <label>
-              <input
-                type="radio"
-                name="tipo_publicacion"
-                value="Voluntariado"
-                formControlName="tipo_publicacion"
-              />
-              <span>Voluntariado</span>
-            </label>
-          </fieldset>
-
-          <label>Imagen</label>
-          <input type="String" id="imagen" formControlName="imagen" />
-
-          <button>Ingresar Publicacion</button>
-        </form>
-      </div>
-      <div *ngIf="publicacionesUsuario.length > 0">
-        <h2>Mis Publicaciones</h2>
-        <div class="publicaciones-lista">
-          <div
-            *ngFor="let publicacion of publicacionesUsuario"
-            class="publicacion"
-          >
-            <div class="imagen">{{ publicacion.imagen }}</div>
-            <div class="titulo">
-              Titulo: {{ publicacion.titulo_publicacion }}
-            </div>
-            <div class="descripcion">
-              Descripcion: {{ publicacion.descripcion }}
-            </div>
-            <div class="precio">
-              Precio Local: Q{{ publicacion.precio_local }}
-            </div>
-            <div class="precio">
-              Precio Sistema: Q{{ publicacion.precio_sistema }}
-            </div>
-            <div class="precio">
-              Tipo de Publicacion: {{ publicacion.tipo_publicacion }}
-            </div>
-            <div class="precio">Estado: {{ publicacion.estado }}</div>
-          </div>
+          <h2>{{ publicacion.imagen }}</h2>
+          <h2>Titulo: {{ publicacion.titulo_publicacion }}</h2>
+          <p>Descripcion: {{ publicacion.descripcion }}</p>
+          <p>Precio Local: Q{{ publicacion.precio_local }}</p>
+          <p>Precio Sistema: Q{{ publicacion.precio_sistema }}</p>
+          <p>Tipo de Publicacion: {{ publicacion.tipo_publicacion }}</p>
+          <p>Estado: {{ publicacion.estado }}</p>
         </div>
       </div>
     </div>

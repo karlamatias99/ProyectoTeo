@@ -1,131 +1,155 @@
-html, body {
-    height: 100%; /* Establece la altura de html y body al 100% */
-    margin: 0; /* Elimina cualquier margen */
-     }
-
-.body {
-    font-family: 'Space Grotesk', sans-serif;
-    background-color: #141C29;
-    padding-top: 0px;
-    margin: 0;
-    height: 100vh;
-    overflow: hidden;
-}
-
+/* Estilos para el encabezado */
 .header {
     font-size: 20px;
     display: flex;
-    justify-content: space-between;
     align-items: center;
-    padding: 20px;
+    justify-content: space-between;
+    height: 70px;
+    top: 0;
+    position: fixed;
+    width: 100%;
+    padding: 0 20px;
+    background-color: #263143;
 }
 
 .header nav ul {
     list-style: none;
-    display: flex;
 }
 
 .header nav ul li {
+    display: inline;
     margin-right: 20px;
 }
 
 .header nav ul li a {
-    text-decoration: none;
     color: white;
+    text-decoration: none;
 }
 
-.header nav ul li:hover {
-    background-color: #2D4263;
-    border-radius: 5px;
-}
-
-.separado {
-    margin-left: auto;
-}
-
+/* Estilos para el contenido principal */
 .main {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100%;
+    margin-top: 120px;
+    padding: 20px;
 }
 
-.contenedor {
-    display: flex;
-    justify-content: space-between;
-    align-items: flex-start;
-    margin: 50px auto 45px auto;
-    width: 800px;
-    flex-wrap: wrap;
-    gap: 40px;
-}
-
-.contenedor>div {
-    display: flex;
-    align-items: center;
-    justify-content: flex-start;
-    background-color: #2D4263;
-    height: 100vh;
-    width: 900px;
-    border-radius: 20px;
-    flex-direction: column;
-    padding-top: 35px;
-    gap: 25px;
-    flex: 1 1 300px;
-}
-
-.contenedor>div>form {
-    display: flex;
-    flex-direction: column;
-    gap: 5px;
-}
-
-.contenedor>div>form>input,
-select {
+.publicar {
+    background-color: #ffffff;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    padding: 30px;
+  }
+  
+  .publicar h2 {
+    color: #333333;
+    font-size: 28px;
+    margin-bottom: 20px;
+    text-align: center;
+  }
+  
+  .publicar label {
+    color: #555555;
+    display: block;
+    font-size: 16px;
+    margin-bottom: 10px;
+  }
+  
+  .publicar input[type="text"],
+  .publicar input[type="number"],
+  .publicar input[type="file"]{
+    background-color: #f9f9f9;
+    border: none;
     border-radius: 5px;
+    color: #333333;
+    font-size: 16px;
+    margin-bottom: 15px;
+    padding: 12px;
+    width: 100%;
+    transition: background-color 0.3s ease;
+  }
+  
+
+  
+  .publicar button {
+    background-color: #5fa4ff;
     border: none;
-    padding: 5px;
-    color: black;
-}
-
-.option {
-    color: black;
-}
-
-.contenedor .button {
+    border-radius: 5px;
+    color: #ffffff;
+    cursor: pointer;
+    font-size: 18px;
     margin-top: 20px;
-    height: 30px;
-    border-radius: 7px;
-    border: none;
-    color: black;
-}
+    padding: 12px 30px;
+    transition: background-color 0.3s ease;
+  }
+  
+  .publicar button:hover {
+    background-color: #3cd8ff;
+  }
+  
 
 h2 {
     text-align: center;
     margin-bottom: 20px;
-    font-weight: 300;
+    font-weight: 500;
 }
 
-.publicaciones-lista {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+/* Ajustes para los contenedores de tarjetas */
+.contenedorPublicacion {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+}
+
+
+
+.aprobado {
+    background-color: rgb(21, 121, 21);
+}
+
+.rechazado {
+    background-color: rgb(150, 10, 10);
+}
+
+.pendiente {
+    background-color: rgb(194, 194, 5);
+}
+
+.tarjeta-publicacion {
+    padding: 20px;
+    border-radius: 20px;
+    box-shadow: 0px 0px 5px 0px rgba(0, 0, 0, 0.75);
+}
+
+.tarjeta-publicacion-container {
+    display: flex;
+    flex-wrap: wrap;
     gap: 20px;
+}
+
+.tarjeta-publicacion:hover {
+    background-color: #97999c;
+}
+
+.tarjeta-publicacion h3 {
+    font-size: 20px;
+    margin-bottom: 10px;
+}
+
+.tarjeta-publicacion p {
+    margin-bottom: 10px;
+}
+
+.boton-con-imagen {
+    /* Estilos para el botón */
+    display: inline-block;
+    padding: 10px 20px;
+    border: none;
+    background-color: transparent;
+    cursor: pointer;
   }
   
-  .publicacion {
-    border: 1px solid #ccc;
-    padding: 10px;
-  }
-  
-  .titulo {
-    font-weight: bold;
-  }
-  
-  .descripcion {
-    margin-top: 5px;
-  }
-  
-  .precio {
-    margin-top: 5px;
-    font-style: italic;
+  .boton-con-imagen img {
+    /* Estilos para la imagen dentro del botón */
+    width: 50px; /* Ajusta el tamaño de la imagen según sea necesario */
+    height: 50px;
+    margin-right: 5px; /* Espacio entre la imagen y el texto */
   }

@@ -1,20 +1,34 @@
-<div class="container">
-    <h2>Chat con {{ data.destinatario }}</h2>
-    <div class="chat-container">
-      <!-- Mostrar mensajes enviados por el usuario logueado -->
-      <div class="message sent" *ngFor="let mensaje of mensajesEnviados">
-        <p>{{ mensaje.mensaje }}</p>
-        <small>{{ mensaje.fecha_mensaje }}</small>
-      </div>
-      <!-- Mostrar mensajes recibidos del usuario destinatario -->
-      <div class="message received" *ngFor="let mensaje of mensajesRecibidos">
-        <p>{{ mensaje.mensaje }}</p>
-        <small>{{ mensaje.fecha_mensaje }}</small>
-      </div>
-    </div>
-    <div class="input-container">
-      <textarea [(ngModel)]="mensaje" placeholder="Escribe un mensaje"></textarea>
-      <button (click)="enviarMensaje()">Enviar</button>
+<div class="chat-container">
+  <ul class="chat">
+    <!-- Mostrar mensajes enviados por el usuario logueado -->
+    <li class="message right" *ngFor="let mensaje of mensajesEnviados">
+      <img class="logo" alt="" />
+      <p>
+        <strong>{{ mensaje.usuario_emisor }}:</strong> {{ mensaje.mensaje }}
+      </p>
+      <small>{{ mensaje.fecha_mensaje }}</small>
+    </li>
+    <!-- Mostrar mensajes recibidos del usuario destinatario -->
+    <li class="message left" *ngFor="let mensaje of mensajesRecibidos">
+      <img class="logo" alt="" />
+      <p>
+        <strong>{{ mensaje.usuario_emisor }}:</strong> {{ mensaje.mensaje }}
+      </p>
+      <p>{{ mensaje.fecha_mensaje }}</p>
+    </li>
+  </ul>
+  <div class="input-container">
+    <div class="card-body">
+      <textarea
+        [(ngModel)]="mensaje"
+        placeholder="Escribe un mensaje"
+      ></textarea>
+      <button (click)="enviarMensaje()" class="boton-con-imagen">
+        <img
+          src="../../assets/img/enviar-mensaje.png"
+          alt="Texto alternativo"
+        />
+      </button>
     </div>
   </div>
-  
+</div>

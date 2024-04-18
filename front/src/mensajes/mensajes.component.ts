@@ -15,7 +15,7 @@ import { Subscription } from 'rxjs';
 })
 export class MensajesComponent implements OnDestroy {
 
-  private usuario: number;
+  private usuario: string;
   private publicacion_mensaje: number;
   mensaje: string = '';
   mensajes: any[] = [];
@@ -30,7 +30,7 @@ export class MensajesComponent implements OnDestroy {
     private cookiesService: CookieService
   ) {
     //obtener el id del usuario registrado
-    this.usuario = parseInt(this.cookiesService.get('usuario'), 10);
+    this.usuario = this.cookiesService.get('usuario');
     this.publicacion_mensaje = data.idPublicacion;
     console.log(this.data.destinatario);
     console.log(this.usuario);
@@ -39,9 +39,7 @@ export class MensajesComponent implements OnDestroy {
 
 
   ngOnInit(): void {
-    // Reiniciar los mensajes cada vez que se abre el componente
-    this.mensajesEnviados = [];
-    this.mensajesRecibidos = [];
+ 
     this.obtenerMensajes();
   }
 

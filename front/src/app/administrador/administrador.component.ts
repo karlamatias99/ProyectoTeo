@@ -55,9 +55,9 @@ export class AdministradorComponent {
   }
 
   //Metodos para rechazar, aprobar o dejar pendiente los usuarios y las publicaciones 
-  rechazarUsuario(id: number) {
-    const publicacion = { id_usuario: id, estado: 'Rechazado' }; 
-    this.userService.editarUsuario(id, publicacion).subscribe(
+  rechazarUsuario(correo: string) {
+    const publicacion = { id_usuario: correo, estado: 'Rechazado' }; 
+    this.userService.editarUsuario(correo, publicacion).subscribe(
       response => {
         console.log('Publicación aprobada exitosamente');
         this.getUsers();
@@ -68,9 +68,9 @@ export class AdministradorComponent {
     );
   }
 
-  aprobarUsuario(id: number) {
-    const publicacion = { id_usuario: id, estado: 'Aprobado' };
-    this.userService.editarUsuario(id, publicacion).subscribe(
+  aprobarUsuario(correo: string) {
+    const publicacion = { id_usuario: correo, estado: 'Aprobado' };
+    this.userService.editarUsuario(correo, publicacion).subscribe(
       response => {
         console.log('Publicación aprobada exitosamente');
         this.getUsers();
@@ -81,9 +81,9 @@ export class AdministradorComponent {
     );
   }
 
-  pendienteUsuario(id: number) {
-    const publicacion = { id_usuario: id, estado: 'Pendiente' }; // Cambiado 'usuario' a 'publicacion' para reflejar el contexto
-    this.userService.editarUsuario(id, publicacion).subscribe(
+  pendienteUsuario(correo: string) {
+    const publicacion = { id_usuario: correo, estado: 'Pendiente' }; // Cambiado 'usuario' a 'publicacion' para reflejar el contexto
+    this.userService.editarUsuario(correo, publicacion).subscribe(
       response => {
         console.log('Publicación aprobada exitosamente');
         this.getUsers();

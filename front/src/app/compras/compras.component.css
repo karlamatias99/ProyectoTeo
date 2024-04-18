@@ -118,15 +118,11 @@ h1 {
     margin-bottom: 10px;
 }
 
-.tarjeta-publicacion button {
-    background-color: #263143;
-    width: 100%;
-    padding: 10px;
-    border: none;
-    border-radius: 10px;
-    color: #fff;
-    cursor: pointer;
+.botones-acciones {
+    display: flex;
+
 }
+
 
 /*Estilos de la ventana emergente del carrito*/
 .ventana-emergente {
@@ -201,20 +197,25 @@ h1 {
 /*Contendio vantana Carrito*/
 .contenedorCompra {
     display: flex;
-    flex-direction: column; /* Alinear elementos verticalmente */
-    align-items: center; /* Alinear elementos horizontalmente */
-    justify-content: flex-start; /* Alinear elementos en la parte superior */
+    flex-direction: column;
+    /* Alinear elementos verticalmente */
+    align-items: center;
+    /* Alinear elementos horizontalmente */
+    justify-content: flex-start;
+    /* Alinear elementos en la parte superior */
     width: 100%;
     height: 100%;
     position: fixed;
     top: 0;
     background-color: #3a4168d3;
-    z-index: 2; /* Asegurar que esté sobre el contenedor de productos */
+    z-index: 2;
+    /* Asegurar que esté sobre el contenedor de productos */
     padding: 20px;
 }
 
 #contenedorCompra {
-    min-height: 300px; /* Establecemos una altura mínima para el contenedor */
+    min-height: 300px;
+    /* Establecemos una altura mínima para el contenedor */
 }
 
 .informacionCompra {
@@ -243,7 +244,7 @@ h1 {
     margin: 50px 0 20px 0;
     font-size: 32px;
     width: 500px;
-    
+
 }
 
 .x {
@@ -255,26 +256,51 @@ h1 {
 }
 
 .productosCompra {
-    margin-top: 60px; /* Agregamos un margen superior */
+    margin-top: 60px;
+    /* Agregamos un margen superior */
     width: 80%;
-    max-width: 500px; /* Limitamos el ancho para que no sea demasiado grande */
-    height: 80%; /* Establecemos una altura específica */
-    overflow-y: auto; /* Añadimos un scroll vertical si es necesario */
+    max-width: 500px;
+    /* Limitamos el ancho para que no sea demasiado grande */
+    height: 80%;
+    /* Establecemos una altura específica */
+    overflow-y: auto;
+    /* Añadimos un scroll vertical si es necesario */
     padding: 20px;
     background-color: #2D4263;
     border-radius: 15px;
     position: relative;
 }
 
+
+.productosCompra input {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 20px;
+    border: none;
+    border-radius: 5px;
+    background-color: #F2F2F2;
+    font-size: 16px;
+}
+
+.productosCompra input:focus, /* Cambio de color cuando está enfocado */
+.productosCompra input:valid { /* Mantener el color cuando el valor es válido */
+    color: #000;
+}
+
 .productosCompra>div {
-    margin: 10px 0; /* Ajustar margen superior e inferior */
-    padding: 10px; /* Añadir relleno */
-    width: calc(100% - 40px); /* Restar el padding horizontal */
+    margin: 10px 0;
+    /* Ajustar margen superior e inferior */
+    padding: 10px;
+    /* Añadir relleno */
+    width: calc(100% - 40px);
+    /* Restar el padding horizontal */
     border-bottom: 1px dotted black;
     display: flex;
     justify-content: space-between;
-    align-items: center; /* Alinear elementos verticalmente */
-    background-color: #2D4263; /* Fondo azul */
+    align-items: center;
+    /* Alinear elementos verticalmente */
+    background-color: #2D4263;
+    /* Fondo azul */
 }
 
 .productosCompra::-webkit-scrollbar {
@@ -318,7 +344,8 @@ h1 {
 /* Ajustamos la posición de los botones */
 .botones {
     position: absolute;
-    bottom: 20px; /* Colocamos los botones en la parte inferior */
+    bottom: 20px;
+    /* Colocamos los botones en la parte inferior */
     left: 50%;
     transform: translateX(-50%);
 }
@@ -471,4 +498,192 @@ h1 {
     display: flex;
     justify-content: center;
     align-items: center;
+}
+
+.boton-con-imagen {
+    /* Estilos para el botón */
+    display: inline-block;
+    padding: 10px 20px;
+    border: none;
+    background-color: transparent;
+    cursor: pointer;
+}
+
+.boton-con-imagen img {
+    /* Estilos para la imagen dentro del botón */
+    width: 40px;
+    height: 40px;
+}
+
+
+.contenedorConversionMoneda .card {
+    background: #16181a;
+    border-radius: 10px;
+    max-width: 350px;
+    display: block;
+    margin: auto;
+    padding: 60px;
+    padding-left: 20px;
+    padding-right: 20px;
+    box-shadow: 2px 10px 40px black;
+    z-index: 99;
+}
+
+.contenedorConversionMoneda .logo-card {
+    max-width: 50px;
+    margin-bottom: 15px;
+    margin-top: -19px;
+}
+
+
+.contenedorConversionMoneda label {
+    display: flex;
+    font-size: 10px;
+    color: white;
+    opacity: .4;
+}
+
+.contenedorConversionMoneda input {
+    font-family: 'Work Sans', sans-serif;
+    background: transparent;
+    border: none;
+    border-bottom: 1px solid transparent;
+    color: #dbdce0;
+    transition: border-bottom .4s;
+}
+
+.contenedorConversionMoneda input:focus {
+    border-bottom: 1px solid #1abc9c;
+    outline: none;
+}
+
+.contenedorConversionMoneda .cardnumber {
+    display: block;
+    font-size: 20px;
+    margin-bottom: 8px;
+}
+
+.contenedorConversionMoneda .name {
+    display: block;
+    font-size: 15px;
+    margin-bottom: 8px;
+}
+
+
+.contenedorConversionMoneda .vencimiento,
+.contenedorConversionMoneda .ccv {
+    display: block;
+    font-size: 15px;
+    margin-bottom: 8px;
+}
+
+
+.contenedorConversionMoneda .proceed {
+    position: absolute;
+    transform: translate(300px, 10px);
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    background: #1abc9c;
+    border: none;
+    color: white;
+    transition: box-shadow .2s, transform .4s;
+    cursor: pointer;
+}
+
+.contenedorConversionMoneda .proceed:active {
+    outline: none;
+}
+
+.contenedorConversionMoneda .proceed:focus {
+    outline: none;
+    box-shadow: inset 0px 0px 5px white;
+}
+
+.contenedorConversionMoneda .sendicon {
+    filter: invert(100%);
+    padding-top: 2px;
+}
+
+.comprar-button {
+    position: relative; /* Establece el contexto de posición para la imagen */
+    padding-left: 80px; /* Espacio para la imagen */
+    padding-right: 100px;
+    background-color: #263143; /* Color de fondo del botón */
+    border: none; /* Elimina el borde del botón */
+    border-radius: 5px; /* Agrega esquinas redondeadas al botón */
+    color: white; /* Color del texto del botón */
+    font-size: 16px; /* Tamaño de fuente del texto del botón */
+    font-weight: bold; /* Grosor de la fuente del texto del botón */
+    cursor: pointer; /* Cambia el cursor al pasar sobre el botón */
+}
+
+.comprar-button .icono {
+    position: absolute; /* Posiciona la imagen en relación al botón */
+    left: 10px; /* Ajusta la posición horizontal de la imagen */
+    top: 50%; /* Centra verticalmente la imagen */
+    transform: translateY(-50%); /* Centra verticalmente la imagen */
+    width: 30px; /* Ajusta el ancho de la imagen */
+    height: auto; /* Permite que la altura se ajuste automáticamente según el ancho */
+}
+
+.publicar {
+    background-color: #ffffff;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    padding: 30px;
+  }
+  
+  .publicar h2 {
+    color: #333333;
+    font-size: 28px;
+    margin-bottom: 20px;
+    text-align: center;
+  }
+  
+  .publicar label {
+    color: #555555;
+    display: block;
+    font-size: 16px;
+    margin-bottom: 10px;
+  }
+  
+  .publicar input[type="text"],
+  .publicar input[type="number"],
+  .publicar input[type="file"]{
+    background-color: #f9f9f9;
+    border: none;
+    border-radius: 5px;
+    color: #333333;
+    font-size: 16px;
+    margin-bottom: 15px;
+    padding: 12px;
+    width: 100%;
+    transition: background-color 0.3s ease;
+  }
+  
+  
+
+  
+  .publicar button {
+    background-color: #5fa4ff;
+    border: none;
+    border-radius: 5px;
+    color: #ffffff;
+    cursor: pointer;
+    font-size: 18px;
+    margin-top: 20px;
+    padding: 12px 30px;
+    transition: background-color 0.3s ease;
+  }
+  
+  .publicar button:hover {
+    background-color: #3cd8ff;
+  }
+  
+
+h2 {
+    text-align: center;
+    margin-bottom: 20px;
+    font-weight: 500;
 }

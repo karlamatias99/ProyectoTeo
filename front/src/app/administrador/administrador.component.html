@@ -1,9 +1,36 @@
 <header class="header" id="header">
   <nav>
     <ul>
-      <li><a (click)="showUserSection()">Usuarios</a></li>
-      <li><a (click)="showPublicationSection()">Publicaciones</a></li>
-      <li><a (click)="cerrarSesion()">Cerrar Sesión</a></li>
+      <li>
+        <a (click)="showUserSection()">
+          <img
+            src="../../assets/img/programador.png"
+            alt="Icono Usuario"
+            style="width: 50px; height: 50px"
+          />
+          Usuarios
+        </a>
+      </li>
+      <li>
+        <a (click)="showPublicationSection()">
+          <img
+            src="../../assets/img/publicacion.png"
+            alt="Icono Publicación"
+            style="width: 50px; height: 50px"
+          />
+          Publicaciones
+        </a>
+      </li>
+      <li>
+        <a (click)="cerrarSesion()">
+          <img
+            src="../../assets/img/cerrar-sesion.png"
+            alt="Icono Cerrar Sesión"
+            style="width: 50px; height: 50px"
+          />
+          Cerrar Sesión
+        </a>
+      </li>
     </ul>
   </nav>
 </header>
@@ -33,41 +60,41 @@
           <button
             *ngIf="usuario.estado === 'Pendiente'"
             class="boton-con-imagen"
-            (click)="rechazarUsuario(usuario.id_usuario)"
+            (click)="rechazarUsuario(usuario.correo)"
           >
             <img src="../../assets/img/rechazar.png" alt="Texto alternativo" />
           </button>
           <button
             *ngIf="usuario.estado === 'Pendiente'"
             class="boton-con-imagen"
-            (click)="aprobarUsuario(usuario.id_usuario)"
+            (click)="aprobarUsuario(usuario.correo)"
           >
             <img src="../../assets/img/aprobar.png" alt="Texto alternativo" />
           </button>
           <button
             *ngIf="usuario.estado === 'Aprobado'"
-            (click)="rechazarUsuario(usuario.id_usuario)"
+            (click)="rechazarUsuario(usuario.correo)"
             class="boton-con-imagen"
           >
             <img src="../../assets/img/rechazar.png" alt="Texto alternativo" />
           </button>
           <button
             *ngIf="usuario.estado === 'Aprobado'"
-            (click)="pendienteUsuario(usuario.id_usuario)"
+            (click)="pendienteUsuario(usuario.correo)"
             class="boton-con-imagen"
           >
             <img src="../../assets/img/reloj.png" alt="Texto alternativo" />
           </button>
           <button
             *ngIf="usuario.estado === 'Rechazado'"
-            (click)="pendienteUsuario(usuario.id_usuario)"
+            (click)="pendienteUsuario(usuario.correo)"
             class="boton-con-imagen"
           >
             <img src="../../assets/img/reloj.png" alt="Texto alternativo" />
           </button>
           <button
             *ngIf="usuario.estado === 'Rechazado'"
-            (click)="aprobarUsuario(usuario.id_usuario)"
+            (click)="aprobarUsuario(usuario.correo)"
             class="boton-con-imagen"
           >
             <img src="../../assets/img/aprobar.png" alt="Texto alternativo" />
@@ -80,7 +107,7 @@
   <div class="contenedorPublicacion" id="mostrarPublicacion">
     <div *ngIf="showPublications" class="publicaciones">
       <h2>Publicaciones</h2>
-      <!-- Aquí puedes iterar sobre una lista de publicaciones y mostrarlas en tarjetas -->
+      <!-- Iterar sobre una lista de publicaciones y mostrarlas en tarjetas -->
       <div class="tarjeta-publicacion-container">
         <div
           *ngFor="let publicacion of publicaciones"

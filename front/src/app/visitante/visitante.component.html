@@ -1,0 +1,184 @@
+<header class="header" id="header">
+  <nav>
+    <ul>
+      <li><a (click)="cerrarSesion()">Cerrar Sesión</a></li>
+    </ul>
+  </nav>
+  <h1>Carrito de Compras</h1>
+  <div>
+    <!-- Botón de carrito con número -->
+    <button class="carrito-button" (click)="abrirVentana()">
+      <img
+        class="carrito"
+        src="../../assets/img/anadir-al-carrito.png"
+        alt=""
+      />
+      <!-- Número en burbuja -->
+      <div class="numero-burbuja">{{ cantidadProductos }}</div>
+    </button>
+  </div>
+  <form
+    [formGroup]="searchForm"
+    (ngSubmit)="buscarProducto()"
+    class="formulario-busqueda"
+  >
+    <input
+      type="text"
+      formControlName="nombreProducto"
+      placeholder="Ingrese el título de la publicación"
+    />
+    <button type="submit" class="boton-busqueda">Buscar</button>
+  </form>
+</header>
+
+<div class="main">
+  <!-- Publicaciones -->
+  <div class="contenedorPublicacion" id="mostrarPublicacion">
+    <div *ngFor="let publicacion of publicaciones" class="tarjeta-publicacion">
+      <h3>{{ publicacion.titulo_publicacion }}</h3>
+      <img [src]="publicacion.imagen" />
+      <p>{{ publicacion.descripcion }}</p>
+      <p>{{ "Precio Local: Q" + publicacion.precio_local }}</p>
+      <p>{{ "Precio Sistema: Q" + publicacion.precio_sistema }}</p>
+      <!-- Botón condicional para aplicar o añadir al carrito -->
+      <div class="botones-acciones">
+        <button
+          *ngIf="publicacion.tipo_publicacion === 'Voluntariado'"
+          (click)="aplicar(publicacion)"
+          class="boton-con-imagen"
+        >
+          <img
+            src="../../assets/img/navegador-web.png"
+            alt="Texto alternativo"
+          />
+        </button>
+        <button
+          *ngIf="publicacion.tipo_publicacion === 'Venta'"
+          (click)="
+            comprar(
+              publicacion.titulo_publicacion,
+              publicacion.imagen,
+              publicacion.precio_local
+            )
+          "
+          class="boton-con-imagen"
+        >
+          <img src="../../assets/img/anadir.png" alt="Texto alternativo" />
+        </button>
+        <br />
+        <br />
+        <button
+          (click)="abrirVentanaEmergente(publicacion)"
+          class="boton-con-imagen"
+          disabled
+        >
+          <img src="../../assets/img/chat.png" alt="Texto alternativo" />
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div
+  class="ventana-emergente"
+  id="ventana"
+  [style.display]="mostrarVentanaTarjeta ? 'block' : 'none'"
+>
+  <div class="contenido-ventana">
+    <form [formGroup]="tarjetaForm" (ngSubmit)="registrarTarjeta()">
+      <h2>Tarjeta de Crédito/Débito</h2>
+      <input
+        type="number"
+        formControlName="numeroTarjeta"
+        placeholder="Número de tarjeta"
+      />
+      <input
+        type="text"
+        formControlName="nombreUsuario"
+        placeholder="Nombre de usuario de la tarjeta"
+      />
+      <input
+        type="date"
+        formControlName="vencimiento"
+        placeholder="Vencimiento"
+      />
+      <input type="number" formControlName="CVV" placeholder="CVV" />
+      <button type="submit">Ingresar forma de pago</button>
+    </form>
+    <button (click)="cerrarVentana()">Cancelar</button>
+  </div>
+</div>
+
+<div
+  class="ventana-emergente"
+  id="ventanaPedido"
+  [style.display]="mostrarVentanaPedido ? 'block' : 'none'"
+>
+  <div class="contenido-ventana">
+    <form [formGroup]="pedidoForm" (ngSubmit)="registrarPedido()">
+      <h2>Estás a unos pasos de realizar tu pedido</h2>
+      <input type="text" formControlName="usuarioPedido" placeholder="Nombre" />
+      <input type="text" formControlName="direccion" placeholder="Dirección" />
+      <input type="number" formControlName="telefono" placeholder="Teléfono" />
+      <input
+        type="number"
+        formControlName="Tarjeta"
+        placeholder="Número de tarjeta"
+      />
+      <h2>Total de tu compra:</h2>
+      <p></p>
+      <h2>Fecha de Pedido:</h2>
+      <p></p>
+      <h2>Fecha de Entrega Aproximada:</h2>
+      <p></p>
+      <button type="submit">Realizar pedido</button>
+    </form>
+    <button (click)="cerrarVentanaPedido()">Cancelar</button>
+  </div>
+</div>
+
+<!-- Contenedor de compra -->
+<div
+  class="ventana-emergente"
+  id="ventana"
+  [style.display]="mostrarVentana ? 'block' : 'none'"
+>
+  <div id="contenedorCompra" class="contenedorCompra">
+    <div class="informacionCompra" id="informacionCompra">
+      <h2>Tu Carrito</h2>
+      <p class="x" id="x" (click)="cerrarVentanaCompra()">x</p>
+    </div>
+    <br />
+    <div class="productosCompra" id="productosCompra">
+      <!-- Mostrar productos del carrito -->
+      <div
+        *ngFor="let producto of lista; let i = index"
+        class="productoCarrito"
+      >
+        <div class="img">
+          <p>{{ producto.titulo_publicacion }}</p>
+          <div style="margin-right: 80px">
+            <!-- Contenedor para aplicar margen -->
+            <p>&nbsp;&nbsp;&nbsp; Precio: Q{{ producto.precio_local }}</p>
+            <!-- Precio dentro del contenedor -->
+          </div>
+          <img
+            src="../../assets/img/borrar.png"
+            (click)="eliminar(i)"
+            class="botonTrash"
+          />
+        </div>
+      </div>
+    </div>
+    <div class="total" id="total">
+      <!-- Aquí puedes mostrar el valor total del carrito si lo deseas -->
+    </div>
+    <div class="botones">
+      <button (click)="vaciarCarrito()">Vaciar Carrito</button>
+      <button (click)="abrirVentanaTarjeta()">
+        Ingresar Tarjeta Crédito/Débito
+      </button>
+      <button (click)="abrirVentanaPedido()">Finalizar Compra</button>
+    </div>
+  </div>
+</div>

@@ -41,13 +41,13 @@
     justify-content: center;
     -webkit-backdrop-filter: blur(10px);
     backdrop-filter: blur(10px);
-    background-color: rgba(2, 20, 43, 0.2);
+    background-color: rgba(0, 0, 0, 0.2);
   
   }
   
   .parte_fija div {
     margin: 100px 60px;
-    color: white;
+    color: rgb(4, 6, 75);
     transition: all 500ms;
   }
   
@@ -68,18 +68,18 @@
   
   .parte_fija button {
     padding: 10px 10px;
-    border: 2px solid #fff;
+    border: 2px solid #0b1057;
     font-size: 14px;
     background: transparent;
     font-weight: 600;
     cursor: pointer;
-    color: white;
+    color: rgb(4, 6, 75);
     outline: none;
     transition: all 300ms;
   }
   
   .parte_fija button:hover {
-    background: rgb(91, 92, 104);
+    background: rgb(73, 78, 141);
     color: #ffffff;
   }
   

@@ -4,6 +4,8 @@ import { VentasComponent } from './ventas/ventas.component';
 import { ComprasComponent } from './compras/compras.component';
 import { CarritoComprasComponent } from './carrito-compras/carrito-compras.component';
 import { AdministradorComponent } from './administrador/administrador.component';
+import { VisitanteComponent } from './visitante/visitante.component';
+import { VoluntariadoComponent } from './voluntariado/voluntariado.component';
 
 export const routes: Routes = [
 
@@ -13,4 +15,7 @@ export const routes: Routes = [
     { path: 'compras', component: ComprasComponent },
     {path: 'carrito', component: CarritoComprasComponent },
     {path: 'administracion', component: AdministradorComponent },
+    {path: 'visitante', component: VisitanteComponent },
+    { path: 'voluntariado/:id/:precio/:usuario_publicador/:fecha_inicio/:fecha_fin', component: VoluntariadoComponent }
+    //{path: 'voluntariado', component: VoluntariadoComponent}
 ];

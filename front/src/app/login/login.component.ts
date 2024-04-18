@@ -109,8 +109,9 @@ export class LoginComponent implements OnInit {
     this.usuarioService.login(this.formLogin.value).subscribe((respuesta) => {
       if (respuesta.estado) {
         // Si el estado es true, el usuario está autenticado correctamente
-        let idUsuario = respuesta.respuesta.id_usuario;
-        this.cookiesService.set('usuario', idUsuario.toString());
+        let usuario = respuesta.respuesta.correo;
+        //console.log('Correo del usuario:', usuario);
+        this.cookiesService.set('usuario', usuario);
         // Redirigir a la página correspondiente según el rol del usuario
         if (respuesta.respuesta.rol == 'Vendedor') {
           this.router.navigate(['/ventas']);
@@ -222,4 +223,9 @@ export class LoginComponent implements OnInit {
     this.parteFijaLogin.style.opacity = '0';
   }
 
+
+
+  ingresarComoVisitante(){
+    this.router.navigate(['/visitante']);
+  }
 }

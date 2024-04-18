@@ -15,7 +15,7 @@ export class MensajeService {
         return this.http.post<Observable<any>>(this.url + '/enviar-mensaje', mensajeData);
     }
 
-    obtenerMensajesEnviados(idUsuario: number, idPublicacion: any): Observable<any[]> {
+    obtenerMensajesEnviados(idUsuario: string, idPublicacion: any): Observable<any[]> {
         return this.http.get<any[]>(`${this.url}/enviados/${idUsuario}/${idPublicacion}`);
     }
 
@@ -29,12 +29,12 @@ export class MensajeService {
 
     }
 
-    obtenerMensajesRecibidos(idDestinatario: number, usuario: number, idPublicacion: any): Observable<any[]> {
+    obtenerMensajesRecibidos(idDestinatario: number, usuario: string, idPublicacion: any): Observable<any[]> {
         const url = `${this.url}/mensajes/${idDestinatario}/${usuario}/${idPublicacion}`;
         return this.http.get<any[]>(url);
     }
 
-    obtenerMensajesReceptor(idDestinatario: number): Observable<any[]> {
+    obtenerMensajesReceptor(idDestinatario: string): Observable<any[]> {
         const url = `${this.url}/receptor/${idDestinatario}`;
         return this.http.get<any[]>(url);
     }

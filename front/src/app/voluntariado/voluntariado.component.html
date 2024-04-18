@@ -1,0 +1,94 @@
+<header class="header" id="header">
+  <nav>
+    <ul>
+      <li><a (click)="Regresar()">Regresar</a></li>
+    </ul>
+  </nav>
+</header>
+
+<div class="background-image"></div>
+
+<div class="main">
+  <div class="contenedor">
+    <div class="Voluntariado">
+      <form
+        [formGroup]="formVoluntariado"
+        (submit)="RegistrarVoluntario()"
+        class="FormularioVoluntariado"
+      >
+        <h2>Voluntariado</h2>
+        <div class="campo">
+          <input
+            type="text"
+            placeholder="Nombre"
+            formControlName="nombre_voluntario"
+            class="input-text"
+          />
+        </div>
+        <div class="campo">
+          <input
+            type="text"
+            placeholder="Apellido"
+            formControlName="apellido_voluntario"
+            class="input-text"
+          />
+        </div>
+        <div class="campo">
+          <input
+            type="number"
+            placeholder="Edad"
+            formControlName="edad_voluntario"
+            class="input-number"
+          />
+        </div>
+        <div class="campo genero">
+          <fieldset>
+            <legend>Genero</legend>
+            <label>
+              <input
+                type="radio"
+                name="genero"
+                value="Femenino"
+                checked="true"
+                formControlName="genero"
+                class="radio"
+              />
+              <span>Femenino</span>
+            </label>
+            <label>
+              <input
+                type="radio"
+                name="genero"
+                value="Masculino"
+                formControlName="genero"
+                class="radio"
+              />
+              <span>Masculino</span>
+            </label>
+          </fieldset>
+        </div>
+        <div class="campo">
+          <span>Fecha Nacimiento</span>
+          <input
+            type="date"
+            placeholder="Fecha de nacimiento"
+            formControlName="fecha_nacimiento"
+            class="input-date"
+          />
+        </div>
+        <div class="campo">
+          <input
+            type="number"
+            placeholder="Telefono"
+            formControlName="telefono"
+            class="input-number"
+          />
+        </div>
+
+        <button [disabled]="formVoluntariado.invalid" class="boton">
+          Regístrarse
+        </button>
+      </form>
+    </div>
+  </div>
+</div>

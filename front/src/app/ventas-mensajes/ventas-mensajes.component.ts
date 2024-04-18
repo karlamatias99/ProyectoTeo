@@ -16,7 +16,7 @@ import { PublicacionService } from '../../servicios/publicacion.service';
 })
 export class MensajesVendedorComponent implements OnDestroy {
   @Input() idPublicacion: number | undefined;
-  @Input() usuario: number;
+  @Input() usuario: string;
   mensaje: string = '';
   mensajes: any[] = [];
   mensajesEnviados: any[] = [];
@@ -30,7 +30,7 @@ export class MensajesVendedorComponent implements OnDestroy {
     private cookiesService: CookieService,
     private publicacionService: PublicacionService
   ) {
-    this.usuario = parseInt(this.cookiesService.get('usuario'), 10);
+    this.usuario = this.cookiesService.get('usuario')
     console.log('ID del usuario receptor:', this.usuario);
     //console.log(this.idPublicacion);
 

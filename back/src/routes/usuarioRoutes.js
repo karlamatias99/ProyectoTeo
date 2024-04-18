@@ -8,6 +8,8 @@ router.post('/ingreso', usuario.LoginUsuario);
 router.get('/mostrar', usuario.MostrarUsuarios);
 router.get('/getUser', usuario.User);
 router.put('/editarUsuario/:id', usuario.EditarUsuario);
+router.put('/editarMonedas/:correo/:monedas', usuario.EditarSaldo);
+router.get('/mostrarMonedas/:usuario', usuario.obtenerSaldo);
 //router.get('/usuario/:id', usuario.TraerDatos);
 //router.delete('/eliminar/:id', usuario.EliminarUsuario);
 
