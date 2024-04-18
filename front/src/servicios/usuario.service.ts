@@ -43,8 +43,8 @@ export class UsuarioService {
     return this.http.put<Observable<any>>(`${this.url}/editarUsuario/${correo}`, usuario);
   }
 
-  public getSaldo(id_usuario: string): Observable<any[]> {
-    const url = `${this.url}/mostrarMonedas/${id_usuario}`;
+  public getSaldo(correo: string): Observable<any[]> {
+    const url = `${this.url}/mostrarMonedas/${correo}`;
     return this.http.get<any[]>(url);
   }
 

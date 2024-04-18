@@ -8,10 +8,11 @@ const createHash = require('crypto');
 const IngresoUsuario = async (req, res) => {
     const { nombre_usuario, correo, password, rol } = req.body;
     const estado = "Pendiente";
+    const monedas = 0;
     const hashedPassword = await bcrypt.hash(password, 10); // Hashear la contraseña antes de almacenarla en la base de datos
 
-    const query = 'INSERT INTO usuario (nombre_usuario, correo, password, rol, estado) VALUES (?, ?, ?, ?, ?)';
-    const values = [nombre_usuario, correo, hashedPassword, rol, estado];
+    const query = 'INSERT INTO usuario (nombre_usuario, correo, password, rol, estado, monedas) VALUES (?, ?, ?, ?, ?, ?)';
+    const values = [nombre_usuario, correo, hashedPassword, rol, estado, monedas];
 
     db.query(query, values, (err, result) => {
         if (err) {
@@ -198,10 +199,10 @@ const User = (req, res) => {
 };
 
 const obtenerSaldo = (req, res) => {
-    const usuario = req.params.usuario;
+    const correo = req.params.correo;
     const query = 'SELECT monedas FROM usuario WHERE nombre_usuario = ?';
 
-    db.query(query, [usuario], (err, results) => {
+    db.query(query, [correo], (err, results) => {
         if (err) {
             console.error('Error al obtener monedas:', err);
             res.status(500).json({ error: 'Error al obtener monedas' });

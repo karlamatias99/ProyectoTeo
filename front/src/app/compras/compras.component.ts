@@ -65,6 +65,7 @@ export class ComprasComponent {
   public banderaAciertoCreate: any;
   MonedasUsuario!: number;
   mostrarMonedasDiv = false;
+  MonedasVendedor!: any;
 
   showCompra: boolean = false;
   mostrarFormularioPedido: boolean | undefined;
@@ -111,6 +112,7 @@ export class ComprasComponent {
   ngOnInit(): void {
     // Llama al servicio para obtener las publicaciones cuando el componente se inicializa
     this.obtenerPublicaciones();
+    this.mostrarMonedas();
     //this.obtenerPublicacionesCompras();
   }
 
@@ -271,7 +273,7 @@ export class ComprasComponent {
 
   // Función para aplicar a un voluntariado
   aplicar(publicacion: any) {
-    const id = publicacion.id_publicacion; 
+    const id = publicacion.id_publicacion;
     const remuneracion = publicacion.remuneracion;
     const usuario_publicador = publicacion.usuario_publicacion;
     const fecha_inicio = publicacion.fecha_inicio;
@@ -527,12 +529,12 @@ export class ComprasComponent {
     // Verificar si this.totalEnMonedaSistema es un número
     if (typeof this.total === 'number') {
       // Verificar si el usuario tiene suficientes cacaos para realizar la compra
-      if (this.total <= this.MonedasUsuario) { // Acceder al primer elemento del array
+      if (this.total <= this.MonedasUsuario) {
         // Realizar la compra de la publicación
         this.registrarPedido();
         // Actualizar la cantidad de cacaos del usuario restando el total de la compra
         const cantidadRestante = this.MonedasUsuario - this.total;
-        const cantidadSumada = this.MonedasUsuario - this.total;// Acceder al primer elemento del array
+
         // Llamar al servicio para actualizar la cantidad de cacaos del usuario en la base de datos
         this.usuarioService.editarSaldo(this.usuario, cantidadRestante).subscribe(
           (respuesta) => {
@@ -553,22 +555,37 @@ export class ComprasComponent {
             window.alert('Error al actualizar la cantidad de cacaos');
           }
         );
-        this.usuarioService.getSaldo(this.usuario_vendedor).subscribe((saldoActual) => {
-          console.log(saldoActual);
-          // Sumar el monto del pedido al saldo actual
-          const nuevoSaldo = saldoActual + this.total;
 
-          // Actualizar el saldo del usuario de la publicación en la base de datos
-          this.usuarioService.editarSaldo(this.usuario_vendedor, nuevoSaldo).subscribe(() => {
-            // Aquí puedes continuar con el proceso de realizar el pedido
-            // ...
-          }, (error) => {
-            console.error('Error al actualizar el saldo del usuario de la publicación:', error);
-            window.alert('Error al actualizar el saldo del usuario de la publicación');
-          });
+        // Obtener el saldo actual del usuario vendedor
+        this.usuarioService.getSaldo(this.usuario_vendedor).subscribe((saldoActual) => {
+          this.MonedasVendedor = saldoActual;
+          console.log('Saldo Actual:', this.MonedasVendedor);
+          console.log(this.usuario_vendedor);
+          // Sumar el monto del pedido al saldo actual del usuario vendedor
+          const nuevoSaldoVendedor = this.MonedasVendedor + this.total;
+
+          // Actualizar el saldo del usuario vendedor en la base de datos
+          this.usuarioService.editarSaldo(this.usuario_vendedor, nuevoSaldoVendedor).subscribe(
+            (respuesta) => {
+              if (respuesta) {
+                // Si la actualización fue exitosa, mostrar un mensaje de éxito
+                window.alert('Saldo actualizado correctamente');
+                // Vaciar el carrito después de realizar la compra
+                this.vaciarCarrito();
+                // Cerrar la ventana de compra
+                this.cerrarVentanaCompra();
+                console.log('Saldo final',nuevoSaldoVendedor);
+              } else {
+                // Si hubo un error en la actualización, mostrar un mensaje de error
+                window.alert('Error al actualizar la cantidad de cacaos');
+              }
+            }, (error) => {
+              console.error('Error al actualizar el saldo del usuario vendedor:', error);
+              window.alert('Error al actualizar el saldo del usuario vendedor');
+            });
         }, (error) => {
-          console.error('Error al obtener el saldo del usuario de la publicación:', error);
-          window.alert('Error al obtener el saldo del usuario de la publicación');
+          console.error('Error al obtener el saldo del usuario vendedor:', error);
+          window.alert('Error al obtener el saldo del usuario vendedor');
         });
       } else {
         // Si el usuario no tiene suficientes cacaos para realizar la compra, mostrar un mensaje de error
@@ -578,7 +595,9 @@ export class ComprasComponent {
       // Si this.totalEnMonedaSistema no es un número, mostrar un mensaje de error
       window.alert('El total en moneda del sistema no está definido o no es un número');
     }
+    this.mostrarFormularioPedido = false;
   }
+
 
 
   cerrarSesion() {
